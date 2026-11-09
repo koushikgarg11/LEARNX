@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import {
   Sparkles,
   User,
@@ -15,25 +15,37 @@ import {
   Layers,
   Bell,
   SlidersHorizontal,
+  LogOut,
+  Settings,
+  Award,
+  Cpu,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { CURRENT_LEARNER } from "@/lib/data/mock-data";
 
 export function AppNavbar() {
   const pathname = usePathname();
+  const router = useRouter();
   const [roleDropdownOpen, setRoleDropdownOpen] = useState(false);
+  const [userMenuOpen, setUserMenuOpen] = useState(false);
   const [currentRole, setCurrentRole] = useState<
     "student" | "mentor" | "institution" | "employer" | "admin" | "national"
   >("student");
 
   const roles = [
-    { id: "student", label: "Student Learner", href: "/student/overview", icon: GraduationCap, badge: "Aarav S." },
+    { id: "student", label: "Student Learner", href: "/student/overview", icon: GraduationCap, badge: "Learner" },
     { id: "mentor", label: "Industry Mentor", href: "/mentor/overview", icon: User, badge: "Reviewer" },
     { id: "institution", label: "Institution Dean", href: "/institution/overview", icon: Building2, badge: "Delhi Univ" },
     { id: "employer", label: "Employer Portal", href: "/employer/overview", icon: Briefcase, badge: "OmniRetail HR" },
     { id: "national", label: "National Insights", href: "/intelligence/national-insights", icon: Globe2, badge: "NCS / NASSCOM" },
     { id: "admin", label: "System Admin", href: "/admin/workflows", icon: ShieldCheck, badge: "Governance" },
   ];
+
+  const handleLogout = () => {
+    setUserMenuOpen(false);
+    // Redirect cleanly to login portal
+    router.push("/login");
+  };
 
   return (
     <header className="sticky top-0 z-40 w-full border-b border-slate-200/80 bg-white/95 backdrop-blur-md">
@@ -125,7 +137,10 @@ export function AppNavbar() {
           {/* Interactive Role Switcher Dropdown */}
           <div className="relative">
             <button
-              onClick={() => setRoleDropdownOpen(!roleDropdownOpen)}
+              onClick={() => {
+                setRoleDropdownOpen(!roleDropdownOpen);
+                setUserMenuOpen(false);
+              }}
               className="flex items-center space-x-2 rounded-xl border border-slate-200 bg-slate-50 hover:bg-slate-100 px-3 py-1.5 text-xs font-semibold text-slate-800 transition-all shadow-sm"
             >
               <Layers className="h-3.5 w-3.5 text-blue-600" />
@@ -171,23 +186,81 @@ export function AppNavbar() {
             )}
           </div>
 
-          {/* User Avatar Mini Profile */}
-          <Link
-            href="/student/overview"
-            className="flex items-center space-x-2 pl-2 border-l border-slate-200"
-          >
-            <div className="h-8 w-8 rounded-full bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white font-bold text-xs ring-2 ring-blue-100">
-              AS
-            </div>
-            <div className="hidden xl:block text-left">
-              <p className="text-xs font-semibold text-slate-800 leading-none">
-                {CURRENT_LEARNER.name}
-              </p>
-              <p className="text-[10px] text-slate-400 mt-0.5">
-                Target: Junior Data Analyst
-              </p>
-            </div>
-          </Link>
+          {/* User Profile Dropdown with Logout */}
+          <div className="relative">
+            <button
+              onClick={() => {
+                setUserMenuOpen(!userMenuOpen);
+                setRoleDropdownOpen(false);
+              }}
+              className="flex items-center space-x-2 pl-2 border-l border-slate-200 hover:opacity-85 transition-opacity focus:outline-none"
+            >
+              <div className="h-8 w-8 rounded-full bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white font-bold text-xs ring-2 ring-blue-100 shadow-sm">
+                AS
+              </div>
+              <div className="hidden xl:block text-left">
+                <p className="text-xs font-semibold text-slate-800 leading-none">
+                  {CURRENT_LEARNER.name}
+                </p>
+                <p className="text-[10px] text-slate-400 mt-0.5">
+                  Target: Junior Data Analyst
+                </p>
+              </div>
+              <ChevronDown className="h-3.5 w-3.5 text-slate-400" />
+            </button>
+
+            {userMenuOpen && (
+              <div className="absolute right-0 mt-2 w-64 rounded-xl border border-slate-200 bg-white p-2 shadow-xl ring-1 ring-black/5 z-50 animate-in fade-in-50 zoom-in-95 duration-150">
+                {/* User Header */}
+                <div className="px-3 py-2.5 border-b border-slate-100">
+                  <p className="text-xs font-bold text-slate-900">{CURRENT_LEARNER.name}</p>
+                  <p className="text-[11px] text-slate-400 font-mono truncate">{CURRENT_LEARNER.email}</p>
+                  <Badge variant="success" className="text-[9px] px-1.5 py-0 mt-1 font-bold">
+                    Logged In (Learner)
+                  </Badge>
+                </div>
+
+                {/* Profile Links */}
+                <div className="py-1 space-y-0.5">
+                  <Link
+                    href="/student/overview"
+                    onClick={() => setUserMenuOpen(false)}
+                    className="flex items-center space-x-2.5 px-3 py-2 rounded-lg text-xs text-slate-700 hover:bg-slate-50 transition-colors"
+                  >
+                    <Cpu className="h-4 w-4 text-blue-600" />
+                    <span>My Digital Twin</span>
+                  </Link>
+                  <Link
+                    href="/student/skill-passport"
+                    onClick={() => setUserMenuOpen(false)}
+                    className="flex items-center space-x-2.5 px-3 py-2 rounded-lg text-xs text-slate-700 hover:bg-slate-50 transition-colors"
+                  >
+                    <Award className="h-4 w-4 text-emerald-600" />
+                    <span>Evidence Skill Passport</span>
+                  </Link>
+                  <Link
+                    href="/student/assessments"
+                    onClick={() => setUserMenuOpen(false)}
+                    className="flex items-center space-x-2.5 px-3 py-2 rounded-lg text-xs text-slate-700 hover:bg-slate-50 transition-colors"
+                  >
+                    <Settings className="h-4 w-4 text-slate-500" />
+                    <span>Competency Diagnostic</span>
+                  </Link>
+                </div>
+
+                {/* Log Out Button */}
+                <div className="pt-1 border-t border-slate-100 mt-1">
+                  <button
+                    onClick={handleLogout}
+                    className="w-full flex items-center space-x-2.5 px-3 py-2 rounded-lg text-xs font-semibold text-red-600 hover:bg-red-50 transition-colors text-left"
+                  >
+                    <LogOut className="h-4 w-4 text-red-500" />
+                    <span>Log Out of LEARNX</span>
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </header>

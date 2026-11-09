@@ -73,37 +73,37 @@ export default function LoginPage() {
                   variant="outline"
                   size="sm"
                   onClick={() => handleRoleQuickLogin("student", "/student/overview")}
-                  className="justify-start text-xs border-slate-200 hover:bg-blue-50 hover:text-blue-700"
+                  className="justify-start text-xs border-slate-200 hover:bg-blue-50 hover:text-blue-700 font-medium"
                 >
                   <GraduationCap className="h-3.5 w-3.5 mr-1.5 text-blue-600" />
-                  Student (Aarav)
+                  Student / Learner
                 </Button>
                 <Button
                   variant="outline"
                   size="sm"
                   onClick={() => handleRoleQuickLogin("mentor", "/mentor/overview")}
-                  className="justify-start text-xs border-slate-200 hover:bg-emerald-50 hover:text-emerald-700"
+                  className="justify-start text-xs border-slate-200 hover:bg-emerald-50 hover:text-emerald-700 font-medium"
                 >
                   <User className="h-3.5 w-3.5 mr-1.5 text-emerald-600" />
-                  Mentor (Reviewer)
+                  Industry Mentor
                 </Button>
                 <Button
                   variant="outline"
                   size="sm"
                   onClick={() => handleRoleQuickLogin("institution", "/institution/overview")}
-                  className="justify-start text-xs border-slate-200 hover:bg-purple-50 hover:text-purple-700"
+                  className="justify-start text-xs border-slate-200 hover:bg-purple-50 hover:text-purple-700 font-medium"
                 >
                   <Building2 className="h-3.5 w-3.5 mr-1.5 text-purple-600" />
-                  Institution (Dean)
+                  Academic Institution
                 </Button>
                 <Button
                   variant="outline"
                   size="sm"
                   onClick={() => handleRoleQuickLogin("employer", "/employer/overview")}
-                  className="justify-start text-xs border-slate-200 hover:bg-amber-50 hover:text-amber-700"
+                  className="justify-start text-xs border-slate-200 hover:bg-amber-50 hover:text-amber-700 font-medium"
                 >
                   <Briefcase className="h-3.5 w-3.5 mr-1.5 text-amber-600" />
-                  Employer (HR)
+                  Corporate Employer
                 </Button>
               </div>
             </div>
@@ -128,7 +128,7 @@ export default function LoginPage() {
                     required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder="student@example.edu.in"
+                    placeholder="your.email@university.edu.in"
                     className="w-full pl-9 pr-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-xs focus:outline-none focus:ring-2 focus:ring-blue-600"
                   />
                 </div>

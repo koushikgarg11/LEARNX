@@ -24,9 +24,9 @@ export default function OnboardingPage() {
   const [currentStep, setCurrentStep] = useState(1);
 
   // Form State
-  const [name, setName] = useState("Aarav Sharma");
-  const [degree, setDegree] = useState("B.Com (Computer Applications)");
-  const [institution, setInstitution] = useState("Delhi University");
+  const [name, setName] = useState("");
+  const [degree, setDegree] = useState("");
+  const [institution, setInstitution] = useState("");
   const [gradYear, setGradYear] = useState("2026");
   const [targetRoleId, setTargetRoleId] = useState("data_analyst");
   const [weeklyHours, setWeeklyHours] = useState(12);
@@ -110,6 +110,7 @@ export default function OnboardingPage() {
                       type="text"
                       value={name}
                       onChange={(e) => setName(e.target.value)}
+                      placeholder="Enter your full name"
                       className="w-full bg-slate-50 border border-slate-200 rounded-lg p-2.5 focus:outline-none focus:ring-2 focus:ring-blue-600"
                     />
                   </div>
@@ -136,6 +137,7 @@ export default function OnboardingPage() {
                         type="text"
                         value={institution}
                         onChange={(e) => setInstitution(e.target.value)}
+                        placeholder="e.g. Delhi University, Anna University, Mumbai University"
                         className="w-full bg-slate-50 border border-slate-200 rounded-lg p-2.5 focus:outline-none focus:ring-2 focus:ring-blue-600"
                       />
                     </div>

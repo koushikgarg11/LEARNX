@@ -19,7 +19,7 @@ export default function RegisterPage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [education, setEducation] = useState("B.Com (Computer Applications)");
+  const [education, setEducation] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleRegisterSubmit = (e: React.FormEvent) => {
@@ -65,7 +65,7 @@ export default function RegisterPage() {
                     required
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    placeholder="Aarav Sharma"
+                    placeholder="Enter your full name"
                     className="w-full pl-9 pr-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-xs focus:outline-none focus:ring-2 focus:ring-blue-600"
                   />
                 </div>
@@ -82,7 +82,7 @@ export default function RegisterPage() {
                     required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder="aarav.sharma@example.edu.in"
+                    placeholder="your.email@university.edu.in"
                     className="w-full pl-9 pr-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-xs focus:outline-none focus:ring-2 focus:ring-blue-600"
                   />
                 </div>
