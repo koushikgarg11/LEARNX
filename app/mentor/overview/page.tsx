@@ -43,7 +43,7 @@ interface PendingSubmission {
 const INITIAL_SUBMISSIONS: PendingSubmission[] = [
   {
     id: "sub-101",
-    studentName: "Aarav Sharma",
+    studentName: "Verified Learner #101",
     studentRole: "Target: Junior Data Analyst",
     projectName: "OmniRetail POS 250k-Row Turnaround Analysis",
     submittedAt: "2 hours ago",

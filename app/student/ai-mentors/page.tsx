@@ -28,9 +28,10 @@ import {
   AssistantMessage,
   generateAssistantResponse,
 } from "@/lib/ai/assistant-service";
-import { CURRENT_LEARNER } from "@/lib/data/mock-data";
+import { useLearner } from "@/lib/store/learner-context";
 
 export default function AIMentorsPage() {
+  const { learner } = useLearner();
   const [selectedRole, setSelectedRole] = useState<AssistantRole>("learning_mentor");
   const [messages, setMessages] = useState<Record<AssistantRole, AssistantMessage[]>>({
     learning_mentor: [
@@ -100,9 +101,9 @@ export default function AIMentorsPage() {
 
     try {
       const response = await generateAssistantResponse(selectedRole, text, {
-        currentRole: CURRENT_LEARNER.education,
-        targetRole: CURRENT_LEARNER.targetRole,
-        skills: CURRENT_LEARNER.digitalTwin.demonstratedSkills,
+        currentRole: learner.education,
+        targetRole: learner.targetRole,
+        skills: learner.digitalTwin.demonstratedSkills,
       });
 
       setMessages((prev) => ({
@@ -184,7 +185,7 @@ export default function AIMentorsPage() {
             </div>
           </div>
           <Badge variant="outline" className="text-[10px] text-slate-600">
-            Learner Context: Aarav Sharma (B.Com)
+            Learner Context: {learner.name} ({learner.education})
           </Badge>
         </div>
 

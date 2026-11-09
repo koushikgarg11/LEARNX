@@ -13,9 +13,11 @@ import {
 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { useLearner } from "@/lib/store/learner-context";
 
 export default function RegisterPage() {
   const router = useRouter();
+  const { updateLearner } = useLearner();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -25,10 +27,19 @@ export default function RegisterPage() {
   const handleRegisterSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+
+    if (name.trim()) {
+      updateLearner({
+        name: name.trim(),
+        email: email.trim(),
+        education: education.trim() || "Undergraduate Student",
+      });
+    }
+
     setTimeout(() => {
       setLoading(false);
       router.push("/onboarding");
-    }, 500);
+    }, 400);
   };
 
   return (

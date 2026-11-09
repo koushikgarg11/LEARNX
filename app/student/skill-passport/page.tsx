@@ -27,16 +27,17 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
-  CURRENT_LEARNER,
   MOCK_PASSPORT_ENTRIES,
   SkillPassportEntry,
 } from "@/lib/data/mock-data";
+import { useLearner } from "@/lib/store/learner-context";
 
 export default function SkillPassportPage() {
+  const { learner, getInitials } = useLearner();
   const [isPublic, setIsPublic] = useState(false);
   const [copySuccess, setCopySuccess] = useState(false);
 
-  const passportUrl = `https://learnx.in/passport/${CURRENT_LEARNER.id}`;
+  const passportUrl = `https://learnx.in/passport/${learner.id}`;
 
   const handleCopy = () => {
     navigator.clipboard.writeText(passportUrl);
@@ -91,17 +92,17 @@ export default function SkillPassportPage() {
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 relative z-10">
           <div className="flex items-center space-x-4">
             <div className="h-16 w-16 rounded-2xl bg-gradient-to-tr from-blue-600 to-sky-400 flex items-center justify-center text-white text-xl font-bold ring-4 ring-white/10 shadow-lg">
-              AS
+              {getInitials()}
             </div>
             <div>
               <div className="flex items-center space-x-2">
-                <h2 className="text-xl font-black">{CURRENT_LEARNER.name}</h2>
+                <h2 className="text-xl font-black">{learner.name}</h2>
                 <Badge variant="success" className="text-[10px] px-2 py-0.5 font-bold">
                   Verified Identity
                 </Badge>
               </div>
               <p className="text-xs text-slate-300 mt-1">
-                {CURRENT_LEARNER.education} • {CURRENT_LEARNER.institution}
+                {learner.education} • {learner.institution}
               </p>
               <p className="text-[11px] text-blue-200/80 font-mono mt-0.5">
                 Passport ID: LX-IND-2026-981244

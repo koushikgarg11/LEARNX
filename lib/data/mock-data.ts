@@ -225,12 +225,12 @@ export const INITIAL_JOB_ROLES: JobRole[] = [
 
 export const CURRENT_LEARNER: LearnerProfile = {
   id: "learner-001",
-  name: "Aarav Sharma",
-  email: "aarav.sharma@example.edu.in",
+  name: "Student Learner",
+  email: "student@university.edu.in",
   role: "student",
   avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80",
-  education: "B.Com (Computer Applications) - Class of 2026",
-  institution: "Delhi University",
+  education: "Undergraduate Degree Program",
+  institution: "State University",
   targetRole: "data_analyst",
   weeklyHours: 12,
   readinessScore: 68,

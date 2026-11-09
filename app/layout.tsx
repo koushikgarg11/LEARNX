@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { LearnerProvider } from "@/lib/store/learner-context";
 
 export const metadata: Metadata = {
   title: "LEARNX – The Education-to-Employment Intelligence Platform",
@@ -28,7 +29,7 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.ico" sizes="any" />
       </head>
       <body className="min-h-full font-sans antialiased bg-slate-50 text-slate-900 selection:bg-blue-600 selection:text-white">
-        {children}
+        <LearnerProvider>{children}</LearnerProvider>
       </body>
     </html>
   );

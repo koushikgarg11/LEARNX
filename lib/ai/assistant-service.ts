@@ -30,7 +30,7 @@ export const ASSISTANT_DIRECTORY: Record<AssistantRole, AssistantMetadata> = {
     tagline: "Explains complex concepts, breaks down bottlenecks, and designs study drills",
     avatarColor: "bg-blue-600",
     greeting:
-      "Hello Aarav! I'm your Learning Mentor. I noticed you are currently mastering SQL Window Functions and Power BI DAX. How can I assist your study session today?",
+      "Hello! I'm your Learning Mentor. I noticed you are currently mastering SQL Window Functions and Power BI DAX. How can I assist your study session today?",
     samplePrompts: [
       "Explain the difference between RANK() and DENSE_RANK() with an Indian sales example",
       "I keep struggling with Power BI CALCULATE() filter context. Can you give me a simple mental model?",

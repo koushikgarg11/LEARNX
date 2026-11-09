@@ -28,12 +28,12 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export const DEMO_USERS: Record<string, UserSession> = {
   student: {
     id: "learner-001",
-    name: "Aarav Sharma",
-    email: "aarav.sharma@example.edu.in",
+    name: "Student Learner",
+    email: "student@university.edu.in",
     role: "student",
     avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80",
-    education: "B.Com (Computer Applications)",
-    institution: "Delhi University",
+    education: "Undergraduate Degree Program",
+    institution: "State University",
     targetRole: "data_analyst",
   },
   mentor: {

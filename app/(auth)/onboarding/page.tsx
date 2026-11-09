@@ -18,13 +18,15 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/com
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { INITIAL_JOB_ROLES, JobRole } from "@/lib/data/mock-data";
+import { useLearner } from "@/lib/store/learner-context";
 
 export default function OnboardingPage() {
   const router = useRouter();
+  const { learner, updateLearner } = useLearner();
   const [currentStep, setCurrentStep] = useState(1);
 
   // Form State
-  const [name, setName] = useState("");
+  const [name, setName] = useState(learner.name !== "Student Learner" ? learner.name : "");
   const [degree, setDegree] = useState("");
   const [institution, setInstitution] = useState("");
   const [gradYear, setGradYear] = useState("2026");
@@ -42,10 +44,19 @@ export default function OnboardingPage() {
 
   const handleFinishOnboarding = () => {
     setIsFinishing(true);
+
+    updateLearner({
+      name: name.trim() || learner.name || "Student Learner",
+      education: degree.trim() || learner.education || "Bachelor's Degree",
+      institution: institution.trim() || learner.institution || "University",
+      targetRole: targetRoleId,
+      weeklyHours,
+    });
+
     setTimeout(() => {
       setIsFinishing(false);
       router.push("/student/overview");
-    }, 800);
+    }, 600);
   };
 
   return (

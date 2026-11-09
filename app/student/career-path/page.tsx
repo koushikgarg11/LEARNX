@@ -26,14 +26,15 @@ import { Button } from "@/components/ui/button";
 import {
   INITIAL_JOB_ROLES,
   INITIAL_SKILLS,
-  CURRENT_LEARNER,
   JobRole,
 } from "@/lib/data/mock-data";
+import { useLearner } from "@/lib/store/learner-context";
 
 export default function CareerPathwaySimulatorPage() {
+  const { learner } = useLearner();
   const [primaryRoleId, setPrimaryRoleId] = useState("data_analyst");
   const [comparisonRoleId, setComparisonRoleId] = useState("business_analyst");
-  const [weeklyHours, setWeeklyHours] = useState(12);
+  const [weeklyHours, setWeeklyHours] = useState(learner.weeklyHours || 12);
 
   const primaryRole =
     INITIAL_JOB_ROLES.find((r) => r.id === primaryRoleId) ||
@@ -46,7 +47,7 @@ export default function CareerPathwaySimulatorPage() {
   const calculateEffort = (role: JobRole) => {
     const totalHours = role.requiredSkills.reduce((acc, req) => {
       const skill = INITIAL_SKILLS.find((s) => s.id === req.skillId);
-      const isDemonstrated = CURRENT_LEARNER.digitalTwin.demonstratedSkills.includes(
+      const isDemonstrated = learner.digitalTwin.demonstratedSkills.includes(
         req.skillId
       );
       if (isDemonstrated) return acc; // already mastered
@@ -75,7 +76,7 @@ export default function CareerPathwaySimulatorPage() {
             Career Pathway Simulator
           </h1>
           <p className="text-xs sm:text-sm text-slate-500">
-            Current Education: <strong className="text-slate-800">{CURRENT_LEARNER.education}</strong>. Simulate required skills, timeline, and practical projects across career alternatives.
+            Current Education: <strong className="text-slate-800">{learner.education}</strong>. Simulate required skills, timeline, and practical projects across career alternatives.
           </p>
         </div>
 
@@ -154,10 +155,10 @@ export default function CareerPathwaySimulatorPage() {
               <div className="space-y-2">
                 {primaryRole.requiredSkills.map((req) => {
                   const skill = INITIAL_SKILLS.find((s) => s.id === req.skillId);
-                  const isDemonstrated = CURRENT_LEARNER.digitalTwin.demonstratedSkills.includes(
+                  const isDemonstrated = learner.digitalTwin.demonstratedSkills.includes(
                     req.skillId
                   );
-                  const isPartial = CURRENT_LEARNER.digitalTwin.partiallyDemonstratedSkills.includes(
+                  const isPartial = learner.digitalTwin.partiallyDemonstratedSkills.includes(
                     req.skillId
                   );
 
@@ -257,10 +258,10 @@ export default function CareerPathwaySimulatorPage() {
               <div className="space-y-2">
                 {compareRole.requiredSkills.map((req) => {
                   const skill = INITIAL_SKILLS.find((s) => s.id === req.skillId);
-                  const isDemonstrated = CURRENT_LEARNER.digitalTwin.demonstratedSkills.includes(
+                  const isDemonstrated = learner.digitalTwin.demonstratedSkills.includes(
                     req.skillId
                   );
-                  const isPartial = CURRENT_LEARNER.digitalTwin.partiallyDemonstratedSkills.includes(
+                  const isPartial = learner.digitalTwin.partiallyDemonstratedSkills.includes(
                     req.skillId
                   );
 

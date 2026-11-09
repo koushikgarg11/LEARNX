@@ -17,9 +17,12 @@ import {
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { useLearner } from "@/lib/store/learner-context";
 
 export default function LoginPage() {
   const router = useRouter();
+  const { learner, updateLearner } = useLearner();
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -35,10 +38,28 @@ export default function LoginPage() {
   const handleLoginSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+
+    // Derive a clean dynamic student name from input or email prefix
+    let derivedName = name.trim();
+    if (!derivedName && email) {
+      const prefix = email.split("@")[0].replace(/[._-]/g, " ");
+      derivedName = prefix
+        .split(" ")
+        .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+        .join(" ");
+    }
+
+    if (derivedName) {
+      updateLearner({
+        name: derivedName,
+        email: email || learner.email,
+      });
+    }
+
     setTimeout(() => {
       setLoading(false);
       router.push("/student/overview");
-    }, 500);
+    }, 400);
   };
 
   return (
@@ -117,6 +138,22 @@ export default function LoginPage() {
 
             {/* Standard Login Form */}
             <form onSubmit={handleLoginSubmit} className="space-y-4">
+              <div>
+                <label className="block text-xs font-semibold text-slate-700 mb-1">
+                  Your Name (Optional)
+                </label>
+                <div className="relative">
+                  <User className="h-4 w-4 absolute left-3 top-3 text-slate-400" />
+                  <input
+                    type="text"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    placeholder="Enter your name (e.g. Rohit, Sneha)"
+                    className="w-full pl-9 pr-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-xs focus:outline-none focus:ring-2 focus:ring-blue-600"
+                  />
+                </div>
+              </div>
+
               <div>
                 <label className="block text-xs font-semibold text-slate-700 mb-1">
                   Email Address

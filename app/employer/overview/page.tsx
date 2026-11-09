@@ -40,7 +40,7 @@ interface CandidateCandidateRecord {
 const CANDIDATES: CandidateCandidateRecord[] = [
   {
     id: "cand-01",
-    name: "Aarav Sharma",
+    name: "Candidate #1042 (Verified Learner)",
     education: "B.Com (Computer Applications)",
     institution: "Delhi University",
     targetRole: "Junior Data Analyst",

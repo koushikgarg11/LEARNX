@@ -29,20 +29,21 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import {
-  CURRENT_LEARNER,
   INITIAL_SKILLS,
   INITIAL_JOB_ROLES,
   MOCK_PASSPORT_ENTRIES,
 } from "@/lib/data/mock-data";
+import { useLearner } from "@/lib/store/learner-context";
 
 export default function StudentOverviewPage() {
+  const { learner } = useLearner();
   const targetRole =
-    INITIAL_JOB_ROLES.find((r) => r.id === CURRENT_LEARNER.targetRole) ||
+    INITIAL_JOB_ROLES.find((r) => r.id === learner.targetRole) ||
     INITIAL_JOB_ROLES[0];
 
-  const demonstrated = CURRENT_LEARNER.digitalTwin.demonstratedSkills;
-  const partial = CURRENT_LEARNER.digitalTwin.partiallyDemonstratedSkills;
-  const unassessed = CURRENT_LEARNER.digitalTwin.unassessedSkills;
+  const demonstrated = learner.digitalTwin.demonstratedSkills;
+  const partial = learner.digitalTwin.partiallyDemonstratedSkills;
+  const unassessed = learner.digitalTwin.unassessedSkills;
 
   return (
     <div className="space-y-8 animate-in fade-in-50 duration-300">
@@ -54,10 +55,10 @@ export default function StudentOverviewPage() {
             <span>Digital Twin Active • Updated Today</span>
           </div>
           <h1 className="text-2xl sm:text-3xl font-black tracking-tight">
-            Welcome back, {CURRENT_LEARNER.name}!
+            Welcome back, {learner.name}!
           </h1>
           <p className="text-blue-100 text-xs sm:text-sm max-w-xl">
-            Education: <span className="font-semibold text-white">{CURRENT_LEARNER.education}</span> at {CURRENT_LEARNER.institution}.
+            Education: <span className="font-semibold text-white">{learner.education}</span> at {learner.institution}.
             Targeting: <span className="font-semibold text-white">{targetRole.title}</span>.
           </p>
         </div>
@@ -66,14 +67,14 @@ export default function StudentOverviewPage() {
           <div className="text-center px-3 border-r border-white/20">
             <div className="flex items-center justify-center text-amber-300 space-x-1">
               <Flame className="h-4 w-4 fill-amber-300" />
-              <span className="text-lg font-bold">{CURRENT_LEARNER.digitalTwin.learningStreakDays}</span>
+              <span className="text-lg font-bold">{learner.digitalTwin.learningStreakDays}</span>
             </div>
             <p className="text-[10px] text-blue-200">Day Streak</p>
           </div>
           <div className="text-center px-3 border-r border-white/20">
             <div className="flex items-center justify-center text-white space-x-1">
               <Clock className="h-4 w-4" />
-              <span className="text-lg font-bold">{CURRENT_LEARNER.digitalTwin.hoursLearned}h</span>
+              <span className="text-lg font-bold">{learner.digitalTwin.hoursLearned}h</span>
             </div>
             <p className="text-[10px] text-blue-200">Logged Hours</p>
           </div>
@@ -109,7 +110,7 @@ export default function StudentOverviewPage() {
                 <div className="h-32 w-32 rounded-full border-8 border-slate-100 flex items-center justify-center relative">
                   <div className="text-center">
                     <span className="text-3xl font-black text-slate-900">
-                      {CURRENT_LEARNER.readinessScore}%
+                      {learner.readinessScore}%
                     </span>
                     <span className="block text-[10px] text-slate-400 font-bold uppercase tracking-wider">
                       Target Match
